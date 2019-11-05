@@ -2776,7 +2776,7 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
         cu.x = term.c.x, cu.y = term.c.y;
         set_notifmode(0, ksym);
         return MODE_KBDSELECT;
-    case XK_s :
+    case XK_v :
         if ( selectsearch_mode & 1 )
             selclear();
         else
@@ -2797,6 +2797,7 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
         selectsearch_mode ^= 2;
         break;
     case XK_Escape :
+    case XK_q :
         if ( !in_use )  break;
         selclear();
     case XK_Return :
@@ -2826,8 +2827,8 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
         term.c.x = cu.x, term.c.y = cu.y;
         select_or_drawcursor(selectsearch_mode, type);
         break;
-    case XK_Page_Up :
-    case XK_Page_Down :
+    case XK_u :
+    case XK_d :
         term.c.y = (ksym == XK_Prior ) ? 0 : cu.y;
         select_or_drawcursor(selectsearch_mode, type);
         break;
