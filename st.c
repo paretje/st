@@ -2741,7 +2741,6 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
     static int sens, quant;
     static char selectsearch_mode;
     int i, bound, *xy;
-    Arg scroll_arg = (Arg) { .i = -1 };
     
     
     if ( selectsearch_mode & 2 ) {
@@ -2832,10 +2831,9 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
         select_or_drawcursor(selectsearch_mode, type);
         break;
     case XK_u :
-	kscrollup(&scroll_arg);
-	break;
     case XK_d :
-	kscrolldown(&scroll_arg);
+        term.c.y = (ksym == XK_Prior ) ? 0 : cu.y;
+        select_or_drawcursor(selectsearch_mode, type);
         break;
     case XK_exclam :
         term.c.x = term.col >> 1;
