@@ -2800,8 +2800,6 @@ int trt_kbdselect(KeySym ksym, char *buf, int len) {
         set_notifmode(15, ksym);
         selectsearch_mode ^= 2;
         break;
-    case XK_y :
-	xclipcopy();
     case XK_Escape :
     case XK_q :
         if ( !in_use )  break;
