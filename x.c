@@ -1563,9 +1563,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 				width, 1);
 	}
 
-	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, winx, winy, width,
-			dc.font.ascent + dc.font.descent, winx, winy);
-
 	/* Reset clip to none. */
 	XftDrawSetClip(xw.draw, 0);
 }
@@ -1578,6 +1575,10 @@ xdrawglyph(Glyph g, int x, int y)
 
 	numspecs = xmakeglyphfontspecs(&spec, &g, 1, x, y);
 	xdrawglyphfontspecs(&spec, g, numspecs, x, y);
+
+	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, borderpx + x * win.cw,
+			borderpx + y * win.ch, win.cw, win.ch,
+			borderpx + x * win.cw, borderpx + y * win.ch);
 }
 
 void
@@ -1738,6 +1739,10 @@ xdrawline(Line line, int x1, int y1, int x2)
 	}
 	if (i > 0)
 		xdrawglyphfontspecs(specs, base, i, ox, y1);
+
+	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, x1 * win.cw,
+			borderpx + y1 * win.ch, (x2 - x1) * win.cw, win.ch, 0,
+			borderpx + y1 * win.ch);
 }
 
 void
