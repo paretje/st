@@ -192,6 +192,10 @@ static MouseShortcut mshortcuts[] = {
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
+static char *openurlcmd[] = { "/bin/sh", "-c",
+	"xurls | rofi -dmenu -l 10 -w $WINDOWID | xargs -r xdg-open",
+	"externalpipe", NULL };
+
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define AltMask Mod1Mask
@@ -214,6 +218,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ AltMask,              XK_l,           externalpipe,   { .v = openurlcmd } },
 };
 
 /*
